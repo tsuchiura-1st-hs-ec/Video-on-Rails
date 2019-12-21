@@ -1,0 +1,40 @@
+<h1>Log in</h1>
+
+<div class="card mt-4 form-group">
+  <div class="card-body">
+    <h5 class="card-title">You don't have your own account yet?</h5>
+    <p class="card-text">Create your own account.</p>
+    <%= link_to "Sign up", new_registration_path(resource_name) %><br />
+  </div>
+</div>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'form-signin') do |f| %>
+  <div class="field form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email,
+      autofocus: true,
+      autocomplete: "email",
+      :placeholder => "john@example.com",
+      class: "form-control",
+      id: "exampleInputEmail1",
+      :required => 'true'
+    %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "current-password", :placeholder => "Password", class: "form-control", id: "exampleInputPassword1", :required => 'true' %>
+    <small><%= link_to "Forgot password", new_password_path(resource_name) %></small>
+  </div>
+
+  <% if devise_mapping.rememberable? %>
+    <div class="field form-group">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit "Log in", class: "btn btn-danger btn-lg btn-block" %>
+  </div>
+<% end %>

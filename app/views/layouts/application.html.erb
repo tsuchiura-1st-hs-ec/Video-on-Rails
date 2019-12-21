@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>VideoOnRails</title>
+    <title>Video on Rails</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +11,40 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header class="fixed-top position-fixed sticky-top shadow-sm" >
+      <nav id='nav' class="navbar navbar-dark bg-danger navbar-expand-lg">
+        <a class="navbar-brand" href="/">Video on Rails</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <%= link_to 'Upload', new_item_path, class: "nav-link" %>
+            </li>
+            <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to 'Logout', destroy_user_session_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Settings', "/users/settings", class: "nav-link" %>
+            </li>
+            <% else %>
+            <li class="nav-item">
+              <%= link_to 'Signin', new_user_session_path, class: "nav-link" %>
+            </li>
+            <% end %>
+          </ul>
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" disabled>
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit" disabled>Search</button>
+          </form>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container" style="margin-top: 86px">
+      <%= yield %>
+    </div>
   </body>
 </html>

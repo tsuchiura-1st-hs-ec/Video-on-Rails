@@ -1,0 +1,42 @@
+<!-- Notice -->
+<% if notice.present? %>
+  <p id="notice" class="alert alert-primary" role="alert"><%= notice %></p>
+<% end %>
+
+<!-- Content -->
+<% if @item.content.present? %>
+  <div class="embed-responsive embed-responsive-16by9 form-group">
+    <%= video_tag url_for(@item.content),
+      loop: true,
+      controls: true,
+      id: 'video',
+      class: "content embed-responsive-item",
+      :playsinline => 'true',
+      :poster => url_for(@item.content.preview(resize: "1000x1000>"))
+    %>
+  </div>
+<% end %>
+
+<!-- Title -->
+<h1 class="title"><b><%= @item.title %></b></h1>
+Posted by <mark><%= @user.username %></mark>, <%= @item.created_at %>
+<hr class="hr">
+
+<!-- Description -->
+<div class="description form-group">
+  <% if Time.now - @item.created_at <= 172800 %>
+    <span class="badge badge-primary">New</span>
+  <% end %>
+  &nbsp
+  <%= @item.description %>
+</div>
+
+<!-- Edit & Destroy -->
+<% if user_signed_in? && current_user.id == @item.user_id %>
+<div class="index-button form-group">
+  <div class="row">
+    <div class="button col"><%= link_to 'Edit', edit_item_path(@item), class: "btn btn-secondary btn-lg btn-block" %></div>
+    <div class="button col"><%= link_to 'Destroy', @item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-lg btn-block"%></div>
+  </div>
+</div>
+<% end %>

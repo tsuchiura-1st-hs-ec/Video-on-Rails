@@ -1,0 +1,55 @@
+<!-- Notification -->
+<% if notice.present? %>
+  <p id="notice" class="alert alert-primary" role="alert"><%= notice %></p>
+<% end %>
+
+<!-- Show initialized message -->
+<% if Item.count == 0 %>
+  <div id="notification">
+    <h1>There are no any items.<br>You have something to show? <a href="items/new">Upload</a>.</h1>
+  </div>
+<% end %>
+
+<!-- Items -->
+<div class="card-columns">
+  <% @items.each do |item| %>
+    <div class="card mb-3">
+
+      <!-- Show Content -->
+        <div class="embed-responsive embed-responsive-16by9 card-image-top">
+          <%= image_tag item.content.preview(auto_orient: true), class: "content embed-responsive-item" %>
+        </div>
+      <div class="card-body">
+
+        <!-- Title -->
+        <h3 class="card-title">
+          <%= item.title %>
+        </h3>
+
+        <!-- Description -->
+        <div class="card-text">
+          <% if Time.now - item.created_at <= 172800 %>
+            <span class="badge badge-danger">New</span>
+          <% end %>
+          <%= item.description.truncate(150, omission: '...') %>
+        </div>
+        <small class="text-muted">
+          <%= Time.now - item.created_at %>s ago
+        </small>
+      </div>
+
+      <!-- Link to -->
+      <div class="card-footer text-center">
+        <%= link_to 'Show', item %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<hr>
+
+<footer class="text-muted mt-3 mb-3">
+  <div class="container text-center">
+    <small>茨城県立土浦第一高等学校 電子通信部</small>
+  </div>
+</footer>

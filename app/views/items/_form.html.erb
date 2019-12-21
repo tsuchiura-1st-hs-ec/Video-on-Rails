@@ -1,0 +1,42 @@
+<%= form_with(model: item, local: true) do |form| %>
+  <% if item.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <h4><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h4>
+      <hr>
+
+      <ul>
+        <% item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Title -->
+  <div class="field form-group">
+    <%= form.label :title%>
+    <%= form.text_field :title, :placeholder => "", class:"form-control", autocomplete: 'off', :required => 'true' %>
+  </div>
+
+  <!-- description -->
+  <div class="field form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "form-control", id: "text", :required => 'true'  %>
+  </div>
+
+  <!-- Content -->
+  <%= form.label :content%>
+  <div class="input-group mb-3">
+    <div class="custom-file">
+      <%= form.label :choose_new_content, class: "custom-file-label"%>
+      <%= form.file_field :content, multiple: false, class: "custom-file-input", :accept => "video/*" %>
+    </div>
+  </div>
+
+  <!--  Submit button -->
+  <%= form.hidden_field :user_id, value: current_user.id %>
+
+  <div class="actions input-group">
+    <%= form.submit class: "btn btn-danger btn-lg btn-block" %>
+  </div>
+<% end %>
