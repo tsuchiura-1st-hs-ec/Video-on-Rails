@@ -8,6 +8,11 @@
   </div>
 </div>
 
+<!-- Error -->
+<% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, class: "alert alert-info", :id => "flash_#{name}" if msg.is_a?(String) %>
+<% end %>
+
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'form-signin') do |f| %>
   <div class="field form-group">
     <%= f.label :email %>
